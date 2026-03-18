@@ -3,6 +3,9 @@
 --
 -- See the kickstart.nvim README for more information
 
+---@module 'lazy'
+---@type LazySpec
+
 -- No line wrap
 vim.o.wrap = false
 
