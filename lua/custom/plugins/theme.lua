@@ -1,19 +1,6 @@
 -- Theme configuration
--- Change the name of the colorscheme plugin below, and then
--- change the command in the config to whatever the name of that colorscheme is.
---
--- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+-- Change the plugin below and the colorscheme command to switch themes.
 
-return {
-  {
-    'Shatur/neovim-ayu',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    config = function() vim.cmd.colorscheme 'ayu-dark' end,
+vim.pack.add { 'https://github.com/Shatur/neovim-ayu' }
 
-    -- 'webhooked/kanso.nvim',
-    -- priority = 1000, -- Make sure to load this before all the other start plugins.
-    -- config = function()
-    --   -- vim.cmd.colorscheme 'kanso'
-    -- end,
-  },
-}
+vim.cmd.colorscheme 'ayu-dark'

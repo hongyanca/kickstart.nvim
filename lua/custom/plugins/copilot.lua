@@ -1,29 +1,20 @@
-if true then
-  return {}
-end
+-- Copilot is disabled. Remove this guard to enable the vim.pack setup below.
+if true then return end
 
-return {
-  'zbirenbaum/copilot.lua',
-  lazy = true,
-  requires = {
-    'copilotlsp-nvim/copilot-lsp',
-    init = function()
-      vim.g.copilot_nes_debounce = 500
-    end,
+vim.g.copilot_nes_debounce = 500
+
+vim.pack.add {
+  'https://github.com/zbirenbaum/copilot.lua',
+  'https://github.com/copilotlsp-nvim/copilot-lsp',
+}
+
+require('copilot').setup {
+  nes = {
+    enabled = false,
+    keymap = {
+      accept_and_goto = '<leader>p',
+      accept = false,
+      dismiss = '<Esc>',
+    },
   },
-  cmd = 'Copilot',
-  event = 'InsertEnter',
-  config = function()
-    require('copilot').setup {
-      nes = {
-        enabled = false,
-        keymap = {
-          accept_and_goto = '<leader>p',
-          accept = false,
-          dismiss = '<Esc>',
-        },
-      },
-      -- copilot_model = 'gpt-4.1-copilot',
-    }
-  end,
 }

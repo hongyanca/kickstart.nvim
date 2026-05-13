@@ -3,8 +3,13 @@
 --
 -- See the kickstart.nvim README for more information
 
----@module 'lazy'
----@type LazySpec
+-- Iterate over all Lua files in the plugins directory and load them
+local plugins_dir = vim.fs.joinpath(vim.fn.stdpath 'config', 'lua', 'custom', 'plugins')
+for file_name, type in vim.fs.dir(plugins_dir) do
+  if type == 'file' and file_name:match '%.lua$' and file_name ~= 'init.lua' then
+    dofile(vim.fs.joinpath(plugins_dir, file_name))
+  end
+end
 
 -- No line wrap
 vim.o.wrap = false
