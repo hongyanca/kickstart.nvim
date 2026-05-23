@@ -84,11 +84,11 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
--- Use Zig as the C compiler on Windows (both 32-bit and 64-bit)
--- We also check that Zig is actually installed to avoid errors
-if (vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1) and vim.fn.executable("zig") == 1 then
-  vim.env.CC = "zig cc"
-  -- vim.env.CXX = "zig c++"  -- uncomment if you also need C++ support
+-- Use GCC as the C compiler on Windows
+-- We also check that GCC is actually installed to avoid errors
+if (vim.fn.has 'win32' == 1 or vim.fn.has 'win64' == 1) and vim.fn.executable 'gcc' == 1 then
+  vim.env.CC = 'gcc'
+  -- vim.env.CXX = 'g++'  -- uncomment if you also need C++ support
 end
 
 -- ============================================================
@@ -914,7 +914,7 @@ do
   vim.pack.add { { src = gh 'nvim-treesitter/nvim-treesitter', version = 'main' } }
 
   -- Ensure basic parsers are installed
-  local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
+  local parsers = { 'bash', 'diff', 'lua', 'luadoc', 'query', 'vim', 'vimdoc' }
   require('nvim-treesitter').install(parsers)
 
   ---@param buf integer

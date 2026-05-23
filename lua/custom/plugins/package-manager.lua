@@ -167,10 +167,12 @@ local function update_lockfile(updates)
   return true
 end
 
-local function apply_updates(updates)
+local function apply_updates(updates, on_progress)
   local errors = {}
 
-  for _, update in ipairs(updates) do
+  for index, update in ipairs(updates) do
+    if on_progress then on_progress(update, index, #updates, 'checkout') end
+
     local checkout_code, _, checkout_err = git(update.path, { 'checkout', '--quiet', update.target })
     if checkout_code ~= 0 then
       errors[#errors + 1] = ('%s: %s'):format(update.name, checkout_err ~= '' and checkout_err or 'git checkout failed')
@@ -180,6 +182,8 @@ local function apply_updates(updates)
         errors[#errors + 1] = ('%s: checkout ended at %s, expected %s'):format(update.name, short_sha(current), short_sha(update.target))
       end
 
+      if on_progress then on_progress(update, index, #updates, 'submodules') end
+
       local submodule_code, _, submodule_err = git(update.path, { 'submodule', 'update', '--init', '--recursive' })
       if submodule_code ~= 0 then
         errors[#errors + 1] = ('%s: %s'):format(update.name, submodule_err ~= '' and submodule_err or 'git submodule update failed')
@@ -187,6 +191,8 @@ local function apply_updates(updates)
 
       local doc_dir = vim.fs.joinpath(update.path, 'doc')
       if vim.uv.fs_stat(doc_dir) then
+        if on_progress then on_progress(update, index, #updates, 'helptags') end
+
         vim.fn.delete(vim.fs.joinpath(doc_dir, 'tags'))
         pcall(vim.cmd.helptags, { doc_dir, magic = { file = false } })
       end
@@ -194,6 +200,8 @@ local function apply_updates(updates)
   end
 
   if #errors == 0 then
+    if on_progress then on_progress(nil, #updates, #updates, 'lockfile') end
+
     local ok, err = update_lockfile(updates)
     if not ok then errors[#errors + 1] = err end
   end
@@ -356,7 +364,17 @@ vim.api.nvim_create_user_command('PackUpdates', function()
     })
 
     vim.defer_fn(function()
-      local ok, errors = pcall(apply_updates, current_updates)
+      local ok, errors = pcall(apply_updates, current_updates, function(update, index, total, stage)
+        local line
+        if update then
+          line = ('Updating: %s (%d/%d) - %s'):format(update.name, index, total, stage)
+        else
+          line = 'Updating: lockfile'
+        end
+
+        set_float_lines(buf, { '', line })
+        vim.cmd.redraw()
+      end)
       if not ok then
         set_float_lines(buf, { '', 'Update failed:', '', tostring(errors) })
         return
@@ -370,12 +388,17 @@ vim.api.nvim_create_user_command('PackUpdates', function()
       end
 
       current_updates = {}
-      set_float_lines(buf, {
+      local lines = {
         '',
-        ('Updated %d package%s.'):format(#names, #names == 1 and '' or 's'),
+        ('Updated %d package%s:'):format(#names, #names == 1 and '' or 's'),
         '',
-        'Run :PackUpdates again to recheck.',
-      })
+      }
+      for _, name in ipairs(names) do
+        lines[#lines + 1] = '  ' .. name
+      end
+      lines[#lines + 1] = ''
+      lines[#lines + 1] = 'Run :PackUpdates again to recheck.'
+      set_float_lines(buf, lines)
     end, 10)
   end, { buffer = buf, silent = true, desc = 'Update all listed vim.pack packages' })
 

@@ -16,7 +16,7 @@
       "version": ">=0.0.0"
     },
     "conform.nvim": {
-      "rev": "18aeab3d63d350dcf44d64c462cc489a3412af40",
+      "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "fidget.nvim": {
@@ -24,7 +24,7 @@
       "src": "https://github.com/j-hui/fidget.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
+      "rev": "25050e4ed39e628282831d4cbecb1850454ce915",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "guess-indent.nvim": {
@@ -41,7 +41,7 @@
       "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "7b01e2974a47d489bb92f47a41e4c0088ea8f86e",
+      "rev": "21c5b3ebeaa0412e28096bb0701434c51c1fbf76",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason-tool-installer.nvim": {
@@ -49,11 +49,11 @@
       "src": "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim"
     },
     "mason.nvim": {
-      "rev": "cbf8d285e1462dd24acf3507817be2bbcb035919",
+      "rev": "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d",
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "264b5c8fc6e82212af0dc5c345145cfa916efeb6",
+      "rev": "a59a9b7fb0a42cbcf022938ee5f0724320b66f63",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "neo-tree.nvim": {
@@ -74,11 +74,11 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lint": {
-      "rev": "d48f3a76189d03b2239f6df1b2f7e3fa8353743b",
+      "rev": "99cbc3ca8a76845fca50e496be7212bebf907dd3",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "246572944c2a1e2a646c2e7609ff619b0fe74c18",
+      "rev": "a683e0ddf0cf64c6cd689e18ffb480ade3c162b7",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
@@ -96,7 +96,7 @@
       "src": "https://github.com/kevinhwang91/nvim-ufo"
     },
     "nvim-web-devicons": {
-      "rev": "7d8dad2c837fcdf2e65997e68657c1a21c568074",
+      "rev": "dfbfaa967a6f7ec50789bead7ef87e336c1fa63c",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "plenary.nvim": {
@@ -108,7 +108,7 @@
       "src": "https://github.com/kevinhwang91/promise-async"
     },
     "snacks.nvim": {
-      "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
+      "rev": "882c996cf28183f4d63640de0b4c02ec886d01f2",
       "src": "https://github.com/folke/snacks.nvim"
     },
     "telescope-fzf-native.nvim": {
