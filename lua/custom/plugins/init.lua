@@ -5,10 +5,8 @@
 
 -- Iterate over all Lua files in the plugins directory and load them
 local plugins_dir = vim.fs.joinpath(vim.fn.stdpath 'config', 'lua', 'custom', 'plugins')
-for file_name, type in vim.fs.dir(plugins_dir) do
-  if type == 'file' and file_name:match '%.lua$' and file_name ~= 'init.lua' then
-    dofile(vim.fs.joinpath(plugins_dir, file_name))
-  end
+for file_name, type in vim.fs.dir(plugins_dir, { follow = true }) do
+  if (type == 'file' or type == 'link') and file_name:match '%.lua$' and file_name ~= 'init.lua' then dofile(vim.fs.joinpath(plugins_dir, file_name)) end
 end
 
 -- No line wrap
@@ -16,6 +14,12 @@ vim.o.wrap = false
 
 -- Hide tilde ~ characters
 vim.opt.fillchars = { eob = ' ' }
+
+-- :W to save a file that was opened without sufficient permissions.
+vim.api.nvim_create_user_command('W', function()
+  vim.cmd 'write !sudo tee % >/dev/null'
+  vim.cmd 'edit!'
+end, {})
 
 -- Tab settings
 vim.opt.expandtab = true -- Convert tabs to spaces
